@@ -13,25 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge
+package com.example.androiddevchallenge.ui.compose.overview
 
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androiddevchallenge.ui.compose.PREVIEW_DARK_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_HEIGHT
 import com.example.androiddevchallenge.ui.compose.PREVIEW_LIGHT_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_WIDTH
-import com.example.androiddevchallenge.ui.compose.overview.OverviewScreen
+import com.example.androiddevchallenge.ui.compose.TopAppBar
+import com.example.androiddevchallenge.ui.theme.AppTheme
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            OverviewScreen()
-        }
+@Composable
+fun OverviewScreen(darkTheme: Boolean = isSystemInDarkTheme()) {
+    AppTheme(darkTheme = darkTheme) {
+        Scaffold(
+            topBar = { TopAppBar() },
+            content = { }
+        )
     }
 }
 

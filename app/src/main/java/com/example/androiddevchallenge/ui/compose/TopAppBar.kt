@@ -13,36 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge
+package com.example.androiddevchallenge.ui.compose
 
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.androiddevchallenge.ui.compose.PREVIEW_DARK_THEME
-import com.example.androiddevchallenge.ui.compose.PREVIEW_HEIGHT
-import com.example.androiddevchallenge.ui.compose.PREVIEW_LIGHT_THEME
-import com.example.androiddevchallenge.ui.compose.PREVIEW_WIDTH
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.compose.overview.OverviewScreen
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            OverviewScreen()
+@Composable
+fun TopAppBar(title: String = stringResource(id = R.string.app_name)) {
+    TopAppBar(
+        title = { Text(title) },
+        navigationIcon = {
+            Icon(Icons.Filled.Menu, contentDescription = null)
         }
-    }
+    )
 }
 
 @Preview(PREVIEW_DARK_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
-fun DarkThemeOverviewScreenPreview() {
+fun DarkThemeTopAppBarPreview() {
     OverviewScreen(darkTheme = true)
 }
 
 @Preview(PREVIEW_LIGHT_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
-fun LightThemeOverviewScreenPreview() {
+fun LightThemeTopAppBarPreview() {
     OverviewScreen(darkTheme = false)
 }
