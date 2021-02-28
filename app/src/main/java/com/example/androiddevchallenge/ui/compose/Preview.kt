@@ -27,7 +27,6 @@ const val PREVIEW_WIDTH = 360
 const val PREVIEW_HEIGHT = 640
 const val PREVIEW_DENSITY = 2.0f
 const val PREVIEW_SCALED_DENSITY = 2.0f
-const val PREVIEW_FONT_SCALE = 1.0f
 
 class AppStyle {
     class PuppyCard {
@@ -53,33 +52,37 @@ class ComposePreviewData {
 
         val puppies: List<Puppy> = listOf(
             Puppy(
+                id = 1,
                 name = "Taro",
                 gender = Gender.MALE,
                 birthDate = "2021/01/01",
-                breed = "Akita",
+                breed = "Akita-Inu",
                 weight = 11f,
                 moreInformation = "He is very active! He is so cool!",
                 imageId = R.mipmap.puppy_taro
             ),
             Puppy(
+                id = 2,
                 name = "Hanako",
                 gender = Gender.FEMALE,
                 birthDate = "2020/12/24",
-                breed = "Kai",
+                breed = "Kai-Ken",
                 weight = 8f,
                 moreInformation = "She is so cute.",
                 imageId = R.mipmap.puppy_hanako
             ),
             Puppy(
+                id = 3,
                 name = "Jiro",
                 gender = Gender.MALE,
                 birthDate = "2020/08/05",
-                breed = "Kisyu",
+                breed = "Kisyu-Ken",
                 weight = 8f,
                 moreInformation = "He is quiet and doesn't bark much.",
                 imageId = R.mipmap.puppy_jiro
             ),
             Puppy(
+                id = 4,
                 name = "Chacha",
                 gender = Gender.FEMALE,
                 birthDate = "2020/07/07",
@@ -89,6 +92,7 @@ class ComposePreviewData {
                 imageId = R.mipmap.puppy_chacha
             ),
             Puppy(
+                id = 5,
                 name = "Kotaro",
                 gender = Gender.MALE,
                 birthDate = "2021/02/02",
@@ -98,10 +102,11 @@ class ComposePreviewData {
                 imageId = R.mipmap.puppy_kotaro
             ),
             Puppy(
+                id = 6,
                 name = "Momo",
                 gender = Gender.MALE,
                 birthDate = "2021/01/05",
-                breed = "Tosa",
+                breed = "Tosa-Ken",
                 weight = 12f,
                 moreInformation = "She is quiet and doesn't bark much.",
                 imageId = R.mipmap.puppy_momo

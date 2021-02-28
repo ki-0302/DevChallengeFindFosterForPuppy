@@ -22,8 +22,9 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import com.example.androiddevchallenge.OverviewScreenPreview
 import com.example.androiddevchallenge.model.Puppy
-import com.example.androiddevchallenge.ui.compose.ComposePreviewData
 import com.example.androiddevchallenge.ui.compose.PREVIEW_DARK_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_HEIGHT
 import com.example.androiddevchallenge.ui.compose.PREVIEW_LIGHT_THEME
@@ -34,6 +35,7 @@ import com.example.androiddevchallenge.ui.theme.AppTheme
 
 @Composable
 fun OverviewScreen(
+    navController: NavController,
     darkTheme: Boolean = isSystemInDarkTheme(),
     screenConfiguration: ScreenConfiguration,
     puppies: List<Puppy>
@@ -47,6 +49,7 @@ fun OverviewScreen(
                         modifier = Modifier.weight(1f)
                     ) {
                         PuppyList(
+                            navController = navController,
                             screenConfiguration = screenConfiguration,
                             puppies = puppies
                         )
@@ -60,19 +63,11 @@ fun OverviewScreen(
 @Preview(PREVIEW_DARK_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun DarkThemeOverviewScreenPreview() {
-    OverviewScreen(
-        darkTheme = true,
-        screenConfiguration = ComposePreviewData.screenConfiguration,
-        puppies = ComposePreviewData.puppies
-    )
+    OverviewScreenPreview(darkTheme = true)
 }
 
 @Preview(PREVIEW_LIGHT_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun LightThemeOverviewScreenPreview() {
-    OverviewScreen(
-        darkTheme = false,
-        screenConfiguration = ComposePreviewData.screenConfiguration,
-        puppies = ComposePreviewData.puppies
-    )
+    OverviewScreenPreview(darkTheme = false)
 }

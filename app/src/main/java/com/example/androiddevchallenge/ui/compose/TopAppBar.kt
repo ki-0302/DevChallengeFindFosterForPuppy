@@ -24,8 +24,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.OverviewScreenPreview
 import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.ui.compose.overview.OverviewScreen
 
 @Composable
 fun TopAppBar(title: String = stringResource(id = R.string.app_name)) {
@@ -46,19 +46,11 @@ fun TopAppBar(title: String = stringResource(id = R.string.app_name)) {
 @Preview(PREVIEW_DARK_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun DarkThemeTopAppBarPreview() {
-    OverviewScreen(
-        darkTheme = true,
-        screenConfiguration = ComposePreviewData.screenConfiguration,
-        puppies = ComposePreviewData.puppies
-    )
+    OverviewScreenPreview(darkTheme = true)
 }
 
 @Preview(PREVIEW_LIGHT_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun LightThemeTopAppBarPreview() {
-    OverviewScreen(
-        darkTheme = false,
-        screenConfiguration = ComposePreviewData.screenConfiguration,
-        puppies = ComposePreviewData.puppies
-    )
+    OverviewScreenPreview(darkTheme = false)
 }
