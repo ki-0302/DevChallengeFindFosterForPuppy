@@ -42,7 +42,7 @@ fun OverviewScreen(
 ) {
     AppTheme(darkTheme = darkTheme) {
         Scaffold(
-            topBar = { TopAppBar() },
+            topBar = { TopAppBar(navController = navController, isRoot = true) },
             content = {
                 Column(modifier = Modifier.fillMaxHeight()) {
                     Column(

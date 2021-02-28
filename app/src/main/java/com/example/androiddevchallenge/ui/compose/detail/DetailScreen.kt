@@ -16,19 +16,27 @@
 package com.example.androiddevchallenge.ui.compose.detail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,6 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.R
@@ -59,14 +68,47 @@ fun DetailScreen(
 
     val puppy = remember(id) { getPuppyFromId(id) }
 
+    val openDialog = remember { mutableStateOf(false) }
+    val dialogWidth = 300.dp
+    val dialogHeight = 200.dp
+
+    if (openDialog.value) {
+        Dialog(onDismissRequest = { openDialog.value = false }) {
+            // Draw a rectangle shape with rounded corners inside the dialog
+            Box(
+                Modifier
+                    .size(dialogWidth, dialogHeight)
+                    .background(Color.LightGray)
+                    .padding(30.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        "Congratulations.\n" +
+                            "Your application is now complete!"
+                    )
+                    Button(
+                        onClick = {
+                            openDialog.value = false
+                            navController.popBackStack()
+                        },
+                        modifier = Modifier.padding(20.dp)
+                    ) {
+                        Text("OK")
+                    }
+                }
+            }
+        }
+    }
+
     AppTheme(darkTheme = darkTheme) {
         Scaffold(
-            topBar = { TopAppBar() },
+            topBar = { TopAppBar(navController = navController) },
             content = {
                 if (puppy == null) {
                     Text("No Data")
                 } else {
-                    PuppyInformation(puppy!!)
+                    PuppyInformation(puppy = puppy, onClick = { openDialog.value = true })
                 }
             }
         )
@@ -82,7 +124,8 @@ fun getPuppyFromId(id: Int): Puppy? {
 
 @Composable
 fun PuppyInformation(
-    puppy: Puppy
+    puppy: Puppy,
+    onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
@@ -92,6 +135,22 @@ fun PuppyInformation(
             contentDescription = null,
             modifier = Modifier.fillMaxWidth()
         )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Button(
+                onClick = {
+                    onClick()
+                },
+                modifier = Modifier
+                    .width(200.dp)
+                    .padding(10.dp)
+            ) {
+                Text("Apply")
+            }
+        }
+
         puppy.run {
             PuppyInformationNameColumn(R.string.puppy_caption_name, name)
             PuppyInformationColumn(R.string.puppy_caption_gender, gender?.name)
