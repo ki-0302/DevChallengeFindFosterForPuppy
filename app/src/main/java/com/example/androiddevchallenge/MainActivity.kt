@@ -20,17 +20,49 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.ui.compose.ComposePreviewData
 import com.example.androiddevchallenge.ui.compose.PREVIEW_DARK_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_HEIGHT
 import com.example.androiddevchallenge.ui.compose.PREVIEW_LIGHT_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_WIDTH
+import com.example.androiddevchallenge.ui.compose.ScreenConfiguration
 import com.example.androiddevchallenge.ui.compose.overview.OverviewScreen
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val screenConfiguration = ScreenConfiguration(
+            orientation = resources.configuration.orientation,
+            screenWidthDp = resources.configuration.screenWidthDp,
+            screenHeightDp = resources.configuration.screenHeightDp, // excluding system ui.
+            density = resources.displayMetrics.density,
+            scaledDensity = resources.displayMetrics.scaledDensity
+        )
+
+        // val gridPuppyList = mutableListOf<GridRowPuppy>()
+        // val rowPuppies = mutableListOf<Puppy>()
+        //
+        // ComposePreviewData.puppies.forEachIndexed { index, puppy ->
+        //     if (index % 2 == 0) {
+        //         rowPuppies.clear()
+        //     }
+        //     rowPuppies.add(puppy)
+        //
+        //     if (index % 2 == (2 - 1) || index == ComposePreviewData.puppies.size - 1) {
+        //         gridPuppyList.add(GridRowPuppy(rowPuppies))
+        //     }
+        // }
+
+        // val gridP = gridPuppyList
+
+        val puppies = ComposePreviewData.puppies
+
         setContent {
-            OverviewScreen()
+            OverviewScreen(
+                screenConfiguration = screenConfiguration,
+                puppies = puppies
+            )
         }
     }
 }
@@ -38,11 +70,19 @@ class MainActivity : AppCompatActivity() {
 @Preview(PREVIEW_DARK_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun DarkThemeOverviewScreenPreview() {
-    OverviewScreen(darkTheme = true)
+    OverviewScreen(
+        darkTheme = true,
+        screenConfiguration = ComposePreviewData.screenConfiguration,
+        puppies = ComposePreviewData.puppies
+    )
 }
 
 @Preview(PREVIEW_LIGHT_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun LightThemeOverviewScreenPreview() {
-    OverviewScreen(darkTheme = false)
+    OverviewScreen(
+        darkTheme = false,
+        screenConfiguration = ComposePreviewData.screenConfiguration,
+        puppies = ComposePreviewData.puppies
+    )
 }

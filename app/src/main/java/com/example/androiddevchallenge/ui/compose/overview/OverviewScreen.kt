@@ -16,22 +16,43 @@
 package com.example.androiddevchallenge.ui.compose.overview
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.model.Puppy
+import com.example.androiddevchallenge.ui.compose.ComposePreviewData
 import com.example.androiddevchallenge.ui.compose.PREVIEW_DARK_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_HEIGHT
 import com.example.androiddevchallenge.ui.compose.PREVIEW_LIGHT_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_WIDTH
+import com.example.androiddevchallenge.ui.compose.ScreenConfiguration
 import com.example.androiddevchallenge.ui.compose.TopAppBar
 import com.example.androiddevchallenge.ui.theme.AppTheme
 
 @Composable
-fun OverviewScreen(darkTheme: Boolean = isSystemInDarkTheme()) {
+fun OverviewScreen(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    screenConfiguration: ScreenConfiguration,
+    puppies: List<Puppy>
+) {
     AppTheme(darkTheme = darkTheme) {
         Scaffold(
             topBar = { TopAppBar() },
-            content = { }
+            content = {
+                Column(modifier = Modifier.fillMaxHeight()) {
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        PuppyList(
+                            screenConfiguration = screenConfiguration,
+                            puppies = puppies
+                        )
+                    }
+                }
+            }
         )
     }
 }
@@ -39,11 +60,19 @@ fun OverviewScreen(darkTheme: Boolean = isSystemInDarkTheme()) {
 @Preview(PREVIEW_DARK_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun DarkThemeOverviewScreenPreview() {
-    OverviewScreen(darkTheme = true)
+    OverviewScreen(
+        darkTheme = true,
+        screenConfiguration = ComposePreviewData.screenConfiguration,
+        puppies = ComposePreviewData.puppies
+    )
 }
 
 @Preview(PREVIEW_LIGHT_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun LightThemeOverviewScreenPreview() {
-    OverviewScreen(darkTheme = false)
+    OverviewScreen(
+        darkTheme = false,
+        screenConfiguration = ComposePreviewData.screenConfiguration,
+        puppies = ComposePreviewData.puppies
+    )
 }
