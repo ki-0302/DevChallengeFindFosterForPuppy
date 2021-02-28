@@ -10,4 +10,12 @@
       the License.
       -->
     <string name="app_name">Find foster for puppy</string>
+
+    <string name="puppy_caption_name">Name</string>
+    <string name="puppy_caption_birth_date">Birth Date</string>
+    <string name="puppy_caption_gender">Gender</string>
+    <string name="puppy_caption_breed">Breed</string>
+    <string name="puppy_caption_weight">Weight</string>
+    <string name="puppy_caption_more_information">More Information…</string>
+
 </resources>
