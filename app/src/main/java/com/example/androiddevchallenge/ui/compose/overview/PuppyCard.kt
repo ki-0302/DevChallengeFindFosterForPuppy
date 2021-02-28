@@ -18,6 +18,7 @@ package com.example.androiddevchallenge.ui.compose.overview
 import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -39,6 +40,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.model.GridPuppies
 import com.example.androiddevchallenge.model.Puppy
@@ -54,6 +57,7 @@ import kotlin.math.floor
 
 @Composable
 fun PuppyList(
+    navController: NavController,
     screenConfiguration: ScreenConfiguration,
     puppies: List<Puppy>
 ) {
@@ -69,6 +73,7 @@ fun PuppyList(
             }
 
             LazyGridColumnPuppies(
+                navController = navController,
                 screenConfiguration = screenConfiguration,
                 puppies = puppies,
                 columns = columns,
@@ -125,6 +130,7 @@ fun getGridPuppies(puppies: List<Puppy>, columns: Int): List<GridPuppies> {
 
 @Composable
 fun LazyGridColumnPuppies(
+    navController: NavController,
     modifier: Modifier = Modifier,
     screenConfiguration: ScreenConfiguration,
     puppies: List<Puppy>,
@@ -150,7 +156,10 @@ fun LazyGridColumnPuppies(
                                 density = density,
                                 scaledDensity = scaledDensity
                             ),
-                            puppy = puppy
+                            puppy = puppy,
+                            onClick = {
+                                navController.navigate("detail/${puppy.id}")
+                            }
                         )
                     }
                 }
@@ -169,11 +178,13 @@ fun LazyGridColumnPuppies(
 fun PuppyCard(
     puppyCardWidthDp: Int,
     captionHeightDp: Int,
-    puppy: Puppy
+    puppy: Puppy,
+    onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
-            .width(puppyCardWidthDp.dp),
+            .width(puppyCardWidthDp.dp)
+            .clickable(onClick = onClick),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -223,7 +234,8 @@ fun PuppyCardPreview() {
                 density = density,
                 scaledDensity = scaledDensity
             ),
-            puppy = ComposePreviewData.puppies[0]
+            puppy = ComposePreviewData.puppies[0],
+            onClick = {}
         )
     }
 }

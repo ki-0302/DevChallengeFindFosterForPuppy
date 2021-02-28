@@ -20,12 +20,17 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.model.Puppy
 import com.example.androiddevchallenge.ui.compose.ComposePreviewData
 import com.example.androiddevchallenge.ui.compose.PREVIEW_DARK_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_HEIGHT
 import com.example.androiddevchallenge.ui.compose.PREVIEW_LIGHT_THEME
 import com.example.androiddevchallenge.ui.compose.PREVIEW_WIDTH
 import com.example.androiddevchallenge.ui.compose.ScreenConfiguration
+import com.example.androiddevchallenge.ui.compose.detail.DetailScreen
 import com.example.androiddevchallenge.ui.compose.overview.OverviewScreen
 
 class MainActivity : AppCompatActivity() {
@@ -40,28 +45,33 @@ class MainActivity : AppCompatActivity() {
             scaledDensity = resources.displayMetrics.scaledDensity
         )
 
-        // val gridPuppyList = mutableListOf<GridRowPuppy>()
-        // val rowPuppies = mutableListOf<Puppy>()
-        //
-        // ComposePreviewData.puppies.forEachIndexed { index, puppy ->
-        //     if (index % 2 == 0) {
-        //         rowPuppies.clear()
-        //     }
-        //     rowPuppies.add(puppy)
-        //
-        //     if (index % 2 == (2 - 1) || index == ComposePreviewData.puppies.size - 1) {
-        //         gridPuppyList.add(GridRowPuppy(rowPuppies))
-        //     }
-        // }
-
-        // val gridP = gridPuppyList
-
         val puppies = ComposePreviewData.puppies
 
         setContent {
+            AppNavigation(screenConfiguration = screenConfiguration, puppies = puppies)
+        }
+    }
+}
+
+@Composable
+fun AppNavigation(
+    screenConfiguration: ScreenConfiguration,
+    puppies: List<Puppy>
+) {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "overview") {
+        composable("overview") {
             OverviewScreen(
+                navController = navController,
                 screenConfiguration = screenConfiguration,
                 puppies = puppies
+            )
+        }
+        composable("detail/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")?.toInt() ?: 0
+            DetailScreen(
+                navController = navController,
+                id = id
             )
         }
     }
@@ -70,17 +80,19 @@ class MainActivity : AppCompatActivity() {
 @Preview(PREVIEW_DARK_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun DarkThemeOverviewScreenPreview() {
-    OverviewScreen(
-        darkTheme = true,
-        screenConfiguration = ComposePreviewData.screenConfiguration,
-        puppies = ComposePreviewData.puppies
-    )
+    OverviewScreenPreview(darkTheme = true)
 }
 
 @Preview(PREVIEW_LIGHT_THEME, widthDp = PREVIEW_WIDTH, heightDp = PREVIEW_HEIGHT)
 @Composable
 fun LightThemeOverviewScreenPreview() {
+    OverviewScreenPreview(darkTheme = false)
+}
+
+@Composable
+fun OverviewScreenPreview(darkTheme: Boolean) {
     OverviewScreen(
+        navController = rememberNavController(),
         darkTheme = false,
         screenConfiguration = ComposePreviewData.screenConfiguration,
         puppies = ComposePreviewData.puppies

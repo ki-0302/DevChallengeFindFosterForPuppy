@@ -16,6 +16,7 @@
 package com.example.androiddevchallenge.model
 
 class Puppy(
+    val id: Int,
     val name: String,
     val gender: Gender? = null,
     val birthDate: String? = null,
