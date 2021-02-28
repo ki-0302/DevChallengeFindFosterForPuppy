@@ -8,11 +8,15 @@
 ## :scroll: Description
 <!--- Describe your app in one or two sentences -->
 
+This app is an application to find foster parents for puppies.
+We'll display them in a grid list so you can find as many puppies as you want!
 
 ## :bulb: Motivation and Context
 <!--- Optionally point readers to interesting parts of your submission. -->
 <!--- What are you especially proud of? -->
 
+I've added support for screen rotation and grid lists.
+I also used a dialog to complete the application.
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
